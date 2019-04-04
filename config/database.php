@@ -1,8 +1,18 @@
 <?php
-
-
+$host = '127.0.0.1';
+$port = '5432';
+$username = 'forge';
+$password = '';
+$database = 'forge';
+if(env('APP_ENV', 'production') == 'production'){
+    $url = parse_url(getenv("DATABASE_URL"));
+    $host = $url["host"];
+    $port = $url["port"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $database = ltrim($url["path"], "/");
+}
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -13,9 +23,7 @@ return [
     | you may use many connections at once using the Database library.
     |
     */
-
-    'default' => env('DB_CONNECTION', 'pgsql'),
-
+    'default' => env('DB_CONNECTION', 'mysql'),
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -31,16 +39,13 @@ return [
     | choice installed on your machine before you begin development.
     |
     */
-
     'connections' => [
-
         'sqlite' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
-
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -59,31 +64,19 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'brite'),
-            'username' => env('DB_USERNAME', 'becode'),
-            'password' => env('DB_PASSWORD', 'becode'),
+            'host' => env('DB_HOST', $host),
+            'port' => env('DB_PORT', $port),
+            'database' => env('DB_DATABASE', $database),
+            'username' => env('DB_USERNAME', $username),
+            'password' => env('DB_PASSWORD', $password),
             'charset' => 'utf8',
             'prefix' => '',
+            'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
-
-        'brite' => [
-            'driver'   => 'pgsql',
-            'host'     => parse_url(getenv("DATABASE_URL"))["host"],
-            'database' => substr(parse_url(getenv("DATABASE_URL"))["path"], 1),
-            'username' => parse_url(getenv("DATABASE_URL"))["user"],
-            'password' => parse_url(getenv("DATABASE_URL"))["pass"],
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
-        ],
-
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'host' => env('DB_HOST', 'localhost'),
@@ -95,9 +88,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
-
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Migration Repository Table
@@ -108,9 +99,7 @@ return [
     | the migrations on disk haven't actually been run in the database.
     |
     */
-
     'migrations' => 'migrations',
-
     /*
     |--------------------------------------------------------------------------
     | Redis Databases
@@ -121,29 +110,22 @@ return [
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
-
     'redis' => [
-
         'client' => env('REDIS_CLIENT', 'predis'),
-
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'predis'),
         ],
-
         'default' => [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
             'database' => env('REDIS_DB', 0),
         ],
-
         'cache' => [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
             'database' => env('REDIS_CACHE_DB', 1),
         ],
-
     ],
-
 ];
