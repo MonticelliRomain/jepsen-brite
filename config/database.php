@@ -1,5 +1,5 @@
 <?php
-$heroku_db_url = parse_url(env('DATABASE_URL', "postgres://becode:becode@localhost:5432/brite"));
+
 
 return [
 
@@ -75,10 +75,10 @@ return [
 
         'brite' => [
             'driver'   => 'pgsql',
-            'host'     => $heroku_db_url['host'],
-            'database' => substr($heroku_db_url['path'], 1),
-            'username' => $heroku_db_url['user'],
-            'password' => $heroku_db_url['pass'],
+            'host'     => parse_url(getenv("DATABASE_URL"))["host"],
+            'database' => substr(parse_url(getenv("DATABASE_URL"))["path"], 1),
+            'username' => parse_url(getenv("DATABASE_URL"))["user"],
+            'password' => parse_url(getenv("DATABASE_URL"))["pass"],
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
