@@ -61,11 +61,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'becode'),
-            'username' => env('DB_USERNAME', 'becode'),
-            'password' => env('DB_PASSWORD', 'becode'),
+            'host' => parse_url(getenv('DATABASE_URL'), PHP_URL_HOST),
+            'port' => parse_url(getenv('DATABASE_URL'), PHP_URL_PORT),
+            'database' => substr(parse_url(getenv('DATABASE_URL'), PHP_URL_PATH), 1),
+            'username' => parse_url(getenv('DATABASE_URL'), PHP_URL_USER),
+            'password' => parse_url(getenv('DATABASE_URL'), PHP_URL_PASS),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
