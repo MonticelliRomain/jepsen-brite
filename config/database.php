@@ -1,6 +1,5 @@
 <?php
 
-
 return [
 
     /*
@@ -60,19 +59,19 @@ return [
             ]) : [],
         ],
 
-        
-
         'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'     => parse_url(getenv("DATABASE_URL"))["host"],
-            'database' => substr(parse_url(getenv("DATABASE_URL"))["path"], 1),
-            'username' => parse_url(getenv("DATABASE_URL"))["user"],
-            'password' => parse_url(getenv("DATABASE_URL"))["pass"],
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'becode'),
+            'username' => env('DB_USERNAME', 'becode'),
+            'password' => env('DB_PASSWORD', 'becode'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'schema' => 'public',
+            'sslmode' => 'prefer',
         ],
-
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
