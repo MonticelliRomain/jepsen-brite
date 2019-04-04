@@ -3,9 +3,9 @@
 
 $host = '127.0.0.1';
 $port = '5432';
-$username = 'forge';
-$password = '';
-$database = 'forge';
+$username = 'becode';
+$password = 'becode';
+$database = 'brite';
 if(env('APP_ENV', 'production') == 'production'){
     $url = parse_url(getenv("DATABASE_URL"));
     $host = $url["host"];
@@ -86,6 +86,17 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
+        ],
+
+        'pgsql' => [
+            'driver'   => 'pgsql',
+            'host'     => parse_url(getenv("DATABASE_URL"))["host"],
+            'database' => substr(parse_url(getenv("DATABASE_URL"))["path"], 1),
+            'username' => parse_url(getenv("DATABASE_URL"))["user"],
+            'password' => parse_url(getenv("DATABASE_URL"))["pass"],
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
         ],
 
 
