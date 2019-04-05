@@ -1,18 +1,5 @@
 <?php
-$host = '127.0.0.1';
-$port = '5432';
-$username = 'becode';
-$password = 'becode';
-$database = 'brite';
 
-if(env('APP_ENV', 'production') == 'production'){
-    $url = parse_url(getenv("DATABASE_URL"));
-    $host = $url["host"];
-    $port = $url["port"];
-    $username = $url["user"];
-    $password = $url["pass"];
-    $database = ltrim($url["path"], "/");
-}
 return [
     /*
     |--------------------------------------------------------------------------
