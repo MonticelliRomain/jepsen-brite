@@ -61,7 +61,7 @@ export const createEvent = (obj) => {
 
 export const getAllEvents = () => {
   return axios
-    .get('https://protected-savannah-56742.herokuapp.com/api/events')
+    .get('https://protected-savannah-56742.herokuapp.com/api/eventseuh')
     .then(response => response.data)
     .catch(err => console.log(err))
 }
