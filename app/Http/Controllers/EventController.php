@@ -6,6 +6,7 @@ use App\Event;
 use App\User;
 use App\User_Event;
 use App\Auth;
+use Illuminate\Database\Eloquent\collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Console\EventMakeCommand;
@@ -73,19 +74,18 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-         $ev = DB::table('events')
-                    ->select('events.id', 'events.name','events.description', 'events.date')
+        $ev['event'] = DB::table('events', 'users')
+                    ->select('events.id', 'events.name','events.description', 'events.date', 'events.author', 'users.name AS username')
                     ->join('users' , 'events.author', '=','users.id' )
                     ->where('events.id', '=', $event->id)
-                    ->get();
-
-         $res = DB::table('user__events')
+                     ->first();
+   
+       
+        $ev['participants'] = DB::table('user__events')
                     ->select('pseudo')
                     ->join('users', 'user__events.users_id', '=','users.id')
                     ->where('events_id', '=', $event->id)
                     ->get();
-
-        $ev['participants'] = $res;
        return $ev;
     }
 
@@ -144,7 +144,28 @@ class EventController extends Controller
 
         $userEvent->save();
 
-        return 'Success';
+        return response()->json([
+                'message' => 'Succes']);
+
+    }
+     public function desinscription (Event $event){
+
+        $userEvent = new User_Event;
+        $test = json_decode(DB::table('user__events')
+        ->select('users_id')
+        ->where('events_id', '=', $event->id)
+        ->get());
+
+        if ($test != NULL && ($test[0]->users_id === auth('api')->user()->id)) {
+            DB::table('user__events')->select('users_id')
+                ->where('events_id', '=', $event->id)->delete();
+
+            return response()->json([
+                'message' => 'Succes']);
+        }
+        
+        return response()->json([
+                'message' => 'You are not suscribed']);
 
     }
 }
