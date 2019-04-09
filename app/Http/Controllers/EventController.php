@@ -32,7 +32,7 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        $params = $request->all(); 
+        $params = $request->all();
         $params['author'] = auth('api')->user()->id;
         $event = Event::create($params);
         $event['author'] = $event->author()->get()[0];
@@ -46,20 +46,20 @@ class EventController extends Controller
     public function search(Request $request, $offset, $limit){
 
         if ($request->has('id')) {
-            
+
             $res = Event::find($request->input('id'));
             return $res ? $res : 'raté.';
         }
-        
+
         elseif ($request->has('string')) {
-            
+
             $res = Event::where(
                 'name', 'LIKE', '%'.$request->input('string').'%')->orWhere(
                 'date', '<=', $request->input('string'))->skip($offset*$limit)->take($limit)->get();
-                
+
             return $res ? $res : 'raté.';
-         } 
-       
+         }
+
         return 'coucou';
     }
 
@@ -76,8 +76,8 @@ class EventController extends Controller
                     ->join('users' , 'events.author', '=','users.id' )
                     ->where('events.id', '=', $event->id)
                      ->first();
-   
-       
+
+
         $ev['participants'] = DB::table('user__events')
                     ->select('pseudo')
                     ->join('users', 'user__events.users_id', '=','users.id')
@@ -100,9 +100,9 @@ class EventController extends Controller
             'date' => 'nullable',
             'description' => 'nullable'
          ]);
- 
+
          $event->update($request->all());
- 
+
          return response()->json([
              'message' => 'Great success! Event updated',
              'Event' => $event

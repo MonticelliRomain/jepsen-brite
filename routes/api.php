@@ -13,20 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->group(function () {
-    
+// Route::middleware('auth:api')->group(function () {
+
     // Routes USERS
     Route::get('/user','ApiAuthController@user')->name('app.user');
     Route::post('/logout', 'ApiAuthController@logout');
-    Route::post('/refresh', 'ApiAuthController@refresh'); 
-    
+    Route::post('/refresh', 'ApiAuthController@refresh');
+
     //Routes EVENTS
     Route::post('/events/create', 'EventController@store')->name('events.store');
     Route::delete('/events/{event}', 'EventController@destroy')->name('events.destroy');
     Route::put('/events/{event}', 'EventController@update')->name('events.update');
     Route::put('/events/{event}/inscription', 'EventController@inscription')->name('events.inscription');
     Route::delete('/events/{event}/desinscription','EventController@desinscription')->name('events.desinscription');
-});
+// });
 
 // Routes USERS
 Route::post('/register','Auth\RegisterController@register');
