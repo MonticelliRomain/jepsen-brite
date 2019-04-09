@@ -61,7 +61,7 @@ export const createEvent = (obj) => {
 
 export const getAllEvents = () => {
   return axios
-    .get('https://protected-savannah-56742.herokuapp.com/api/eventseuh')
+    .get('https://protected-savannah-56742.herokuapp.com/api/events1')
     .then(response => response.data)
     .catch(err => console.log(err))
 }
@@ -75,7 +75,7 @@ export const getOldEvents = () => {
 
 export const getOneEvent = (eventId) => {
   return axios
-    .get('https://protected-savannah-56742.herokuapp.com/api/events/'+eventId)
+    .get('https://protected-savannah-56742.herokuapp.com/api/events2/'+eventId)
     .then(response => response.data)
     .catch(err => console.log(err))
 }
@@ -84,7 +84,7 @@ export const editEvent = (eventId, obj) => {
   console.log(obj);
   console.log(eventId);
   return axios
-    .put('https://protected-savannah-56742.herokuapp.com/api/events/'+eventId, obj)
+    .put('https://protected-savannah-56742.herokuapp.com/api/events3/'+eventId, obj)
     // .then(this.props.history.push('/'))
     .catch(err => console.log(err))
 }
