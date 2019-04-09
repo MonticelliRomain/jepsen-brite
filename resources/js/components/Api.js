@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+axios.interceptors.request.use(request => {
+  console.log('Starting Request', request)
+  return request
+});
+
 //Users
 export const logUser = (obj) => {
   return axios({
@@ -55,7 +60,7 @@ export const createEvent = (obj) => {
 
 export const getAllEvents = () => {
   return axios
-    .get('https://protected-savannah-56742.herokuapp.com/api/events')
+    .get('/api/events/')
     .then(response => response.data)
     .catch(err => console.log(err))
 }
