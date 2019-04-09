@@ -16,11 +16,12 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->date('date');
+            $table->dateTime('date');
             $table->string('description');
             $table->integer('author');
             $table->timestamps();
-
+            $table->dateTime('reminder');
+            $table->boolean('u too late');
             $table->foreign('author')->references('id')->on('users');
         });
     }

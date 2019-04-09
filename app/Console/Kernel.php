@@ -4,6 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Event;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Reminder;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +29,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $reminder = DB::table('events')
+                        ->join('users' , 'events.author', '=','users.id' )
+                        ->select('users.email', 'events.name', 'events.author')
+                        ->where('events.reminder', '<', 'NOW()')
+                        ->where('u too late', 'false')
+                        ->get();
+        $it = 0;
+        foreach ($reminder as $reminders) {
+            Mail::to($reminders->email)->send(new Reminder());
+            $it++;
+        }
     }
 
     /**

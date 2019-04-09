@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use App\User;
 use App\User_Event;
-use App\Auth;
-use Illuminate\Database\Eloquent\collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Console\EventMakeCommand;
+
 
 class EventController extends Controller
 {
@@ -75,7 +72,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         $ev['event'] = DB::table('events', 'users')
-                    ->select('events.id', 'events.name','events.description', 'events.date', 'events.author', 'users.name AS username')
+                    ->select('events.id', 'events.name','events.description', 'events.date', 'events.author', 'users.name AS username', 'u too late')
                     ->join('users' , 'events.author', '=','users.id' )
                     ->where('events.id', '=', $event->id)
                      ->first();
