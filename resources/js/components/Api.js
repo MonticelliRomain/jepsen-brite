@@ -1,4 +1,6 @@
-import axios from 'axios';
+import Axios from 'axios';
+
+let axios = Axios.create();
 
 axios.interceptors.request.use(request => {
   console.log('Starting Request', request)
