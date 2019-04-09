@@ -1,6 +1,5 @@
 import Axios from 'axios';
 
-let axios = Axios.create();
 
 axios.interceptors.request.use(request => {
   console.log('Starting Request', request)
@@ -11,7 +10,7 @@ axios.interceptors.request.use(request => {
 export const logUser = (obj) => {
   return axios({
     method: 'post',
-    url:'/api/login',
+    url:'https://protected-savannah-56742.herokuapp.com/api/login',
     config : {headers:{'Content-Type' : "application/json"}},
     data:obj
   })
@@ -20,14 +19,14 @@ export const logUser = (obj) => {
 
 export const unLogUser = () => {
   return axios
-    .post('/api/logout')
+    .post('https://protected-savannah-56742.herokuapp.com/api/logout')
     .catch(err => console.log(err))
 }
 
 export const registerUser = (obj) => {
   return axios({
   method: 'post',
-  url:'/api/register',
+  url:'https://protected-savannah-56742.herokuapp.com/api/register',
   config : {headers:{'Content-Type' : "application/json"}},
   data:obj
   })
@@ -35,48 +34,48 @@ export const registerUser = (obj) => {
 }
 export const userSession = () => {
   return axios
-    .get('/api/user')
+    .get('https://protected-savannah-56742.herokuapp.com/api/user')
     .catch(err => console.log(err))
 }
 
 //Events participation
 export const registerEvent = (eventId) => {
   return axios
-  .get('/api/events/'+eventId+'/inscription')
+  .get('https://protected-savannah-56742.herokuapp.com/api/events/'+eventId+'/inscription')
   .catch(err => console.log(err))
 }
 
 export const unregisterEvent = (eventId) => {
   return axios
-  .get('/api/events/'+eventId+'/desinscription')
+  .get('https://protected-savannah-56742.herokuapp.com/api/events/'+eventId+'/desinscription')
   .catch(err => console.log(err))
 }
 
 //crud events
 export const createEvent = (obj) => {
   return axios
-    .post('/api/events/create', obj)
+    .post('https://protected-savannah-56742.herokuapp.com/api/events/create', obj)
     // .then(this.props.history.push('/'))
     .catch(err => console.log(err))
 }
 
 export const getAllEvents = () => {
   return axios
-    .get('/api/events/')
+    .get('https://protected-savannah-56742.herokuapp.com/api/events/')
     .then(response => response.data)
     .catch(err => console.log(err))
 }
 
 export const getOldEvents = () => {
   return axios
-    .get('/api/events/1/5')
+    .get('https://protected-savannah-56742.herokuapp.com/api/events/1/5')
     .then(response => response.data)
     .catch(err => console.log(err))
 }
 
 export const getOneEvent = (eventId) => {
   return axios
-    .get('/api/events/'+eventId)
+    .get('https://protected-savannah-56742.herokuapp.com/api/events/'+eventId)
     .then(response => response.data)
     .catch(err => console.log(err))
 }
@@ -85,14 +84,14 @@ export const editEvent = (eventId, obj) => {
   console.log(obj);
   console.log(eventId);
   return axios
-    .put('/api/events/'+eventId, obj)
+    .put('https://protected-savannah-56742.herokuapp.com/api/events/'+eventId, obj)
     // .then(this.props.history.push('/'))
     .catch(err => console.log(err))
 }
 
 export const deleteEvent = (eventId) => {
   return axios
-  .delete('/api/events/'+eventId)
+  .delete('https://protected-savannah-56742.herokuapp.com/api/events/'+eventId)
   // .then(this.props.history.push('/'))
   .catch(err => console.log(err))
 }
