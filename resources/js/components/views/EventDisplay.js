@@ -44,9 +44,7 @@ export default class EventDisplay extends Component {
                 </Row>
               </Col>
             }
-            {(this.context.state.session.id === this.props.author) ?
-              <div>Not the author, can't access edit or delete functionnalities</div>
-              :
+            {(this.context.state.session.id === this.props.package.author) ?
               <Col>
                 <Row>
                   <Form>
@@ -64,6 +62,8 @@ export default class EventDisplay extends Component {
                   </div>
                 </Row>
               </Col>
+              :
+              <div>Not the author, can't access edit or delete functionnalities</div>
             }
             </Card.Footer>
           </Card>
