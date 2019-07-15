@@ -8,11 +8,11 @@
 
 The technologies used are PHP and slim + twig.
 
-## Installation (if applicable)
+## Installation 
 
 To install this, clone the repository then run composer update.
 
-## Usage (if applicable)
+## Usage 
 
 To use the project just register an account at https://jpbrite.herokuapp.com/
 
