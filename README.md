@@ -1,10 +1,8 @@
 # BeCode: Jepsen-brite
 
-> 🛰️ Short project's description
+> 🛰️ This project is an event-based website made in PHP.
 
 * * *
-
-This project is an event-based website made in PHP.
 
 ## About
 
